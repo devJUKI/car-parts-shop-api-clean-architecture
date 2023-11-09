@@ -6,6 +6,7 @@ namespace Infrastructure.Persistence;
 
 public class CarPartsShopDbContext : DbContext
 {
+    public DbSet<User> Users { get; set; }
     public DbSet<Part>? Parts { get; set; }
     public DbSet<Shop>? Shops { get; set; }
     public DbSet<Car>? Cars { get; set; }

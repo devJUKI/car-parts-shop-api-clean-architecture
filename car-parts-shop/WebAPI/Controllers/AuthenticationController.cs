@@ -15,7 +15,7 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost("login")]
+    [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var response = await _authenticationService.Login(request);
@@ -23,7 +23,7 @@ public class AuthenticationController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost("register")]
+    [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
         var response = await _authenticationService.Register(request);

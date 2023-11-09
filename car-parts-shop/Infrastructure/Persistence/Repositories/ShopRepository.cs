@@ -3,7 +3,7 @@ using Application.Interfaces.Persistence;
 using Core.Entities;
 using Infrastructure.Persistence;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Persistence.Repositories
 {
     public class ShopRepository : IShopRepository
     {
