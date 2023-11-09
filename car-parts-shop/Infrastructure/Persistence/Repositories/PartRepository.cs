@@ -3,7 +3,7 @@ using AdsWebsiteAPI.Data.Entities;
 using Application.Interfaces.Persistence;
 using Infrastructure.Persistence;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Persistence.Repositories
 {
     public class PartRepository : IPartRepository
     {

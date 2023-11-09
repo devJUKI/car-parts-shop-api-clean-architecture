@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CarPartsShopDbContext))]
-    [Migration("20231108215317_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231109013320_Authentication")]
+    partial class Authentication
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,20 +196,28 @@ namespace Infrastructure.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Firstname")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("HashedPassword")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Car", b =>

@@ -3,7 +3,7 @@ using Application.Interfaces.Persistence;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Persistence.Repositories
 {
     public class CarRepository : ICarRepository
     {

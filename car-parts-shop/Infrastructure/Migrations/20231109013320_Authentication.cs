@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Authentication : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,18 +72,19 @@ namespace Infrastructure.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Email = table.Column<string>(type: "longtext", nullable: true),
-                    Firstname = table.Column<string>(type: "longtext", nullable: true),
-                    Lastname = table.Column<string>(type: "longtext", nullable: true),
-                    HashedPassword = table.Column<string>(type: "longtext", nullable: true)
+                    Email = table.Column<string>(type: "longtext", nullable: false),
+                    Firstname = table.Column<string>(type: "longtext", nullable: false),
+                    Lastname = table.Column<string>(type: "longtext", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: false),
+                    HashedPassword = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -121,9 +122,9 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Shops", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Shops_User_UserId",
+                        name: "FK_Shops_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
@@ -267,7 +268,7 @@ namespace Infrastructure.Migrations
                 name: "Makes");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }
