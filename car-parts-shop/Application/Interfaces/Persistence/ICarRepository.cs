@@ -1,4 +1,4 @@
-﻿using AdsWebsiteAPI.Data.Entities;
+﻿using Core.Entities;
 
 namespace Application.Interfaces.Persistence
 {

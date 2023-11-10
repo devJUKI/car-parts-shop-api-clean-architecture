@@ -1,6 +1,6 @@
 ﻿using Application.Entities;
-using Application.Interfaces.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Application.Interfaces.Authentication;
 
 namespace WebAPI.Controllers;
 

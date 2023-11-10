@@ -1,8 +1,7 @@
-﻿namespace AdsWebsiteAPI.Data.Entities
+﻿namespace Core.Entities;
+
+public class GearboxType
 {
-    public class GearboxType
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-    }
+    public int Id { get; set; }
+    public string? Name { get; set; }
 }

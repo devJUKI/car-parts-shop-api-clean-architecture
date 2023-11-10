@@ -1,11 +1,12 @@
 ﻿using Core.Entities;
-using AdsWebsiteAPI.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
 public class CarPartsShopDbContext : DbContext
 {
+    public DbSet<UserRole> UserRoles { get; set; }
+    public DbSet<Role> Roles { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Part>? Parts { get; set; }
     public DbSet<Shop>? Shops { get; set; }
