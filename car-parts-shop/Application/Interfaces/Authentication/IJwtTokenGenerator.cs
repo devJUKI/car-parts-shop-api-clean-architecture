@@ -2,5 +2,5 @@
 
 public interface IJwtTokenGenerator
 {
-    string GenerateToken(Guid userId, string firstname, string lastname);
+    string GenerateToken(Guid userId, string firstname, string lastname, List<string> roles);
 }

@@ -1,7 +1,8 @@
-﻿using Application.Entities;
+﻿using Core.Entities;
+using Application.Entities;
 using Application.Interfaces.Authentication;
 using Application.Interfaces.Persistence;
-using Core.Entities;
+using Application.Constants;
 
 namespace Application.Services.Authentication;
 
@@ -11,7 +12,10 @@ internal class AuthenticationService : IAuthenticationService
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserRepository _userRepository;
 
-    public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IPasswordHasher passwordHasher)
+    public AuthenticationService(
+        IJwtTokenGenerator jwtTokenGenerator,
+        IUserRepository userRepository,
+        IPasswordHasher passwordHasher)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
@@ -26,7 +30,10 @@ internal class AuthenticationService : IAuthenticationService
             throw new Exception("User with this email was not found");
         }
 
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, user.Firstname, user.Lastname);
+        var roles = await _userRepository.GetUserRolesAsync(user.Id);
+        var rolesNames = roles.Select(r => r.Name).ToList();
+
+        var token = _jwtTokenGenerator.GenerateToken(user.Id, user.Firstname, user.Lastname, rolesNames);
 
         bool isPasswordCorrect = _passwordHasher.Verify(request.Password, user.HashedPassword);
         if (isPasswordCorrect == false)
@@ -49,8 +56,9 @@ internal class AuthenticationService : IAuthenticationService
         }
 
         var userId = Guid.NewGuid();
+        List<string> roleNames = new() { Roles.User };
 
-        var token = _jwtTokenGenerator.GenerateToken(userId, request.Firstname, request.Lastname);
+        var token = _jwtTokenGenerator.GenerateToken(userId, request.Firstname, request.Lastname, roleNames);
 
         string hashedPassword = _passwordHasher.Hash(request.Password);
 
@@ -65,6 +73,8 @@ internal class AuthenticationService : IAuthenticationService
         };
 
         await _userRepository.CreateUserAsync(user);
+
+        await _userRepository.AddRoleToUserAsync(user, Roles.User);
 
         return new UserResponse(
             user,
