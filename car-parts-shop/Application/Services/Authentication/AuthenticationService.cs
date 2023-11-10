@@ -11,18 +11,15 @@ internal class AuthenticationService : IAuthenticationService
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUserRepository _userRepository;
-    private readonly IRolesRepository _roleRepository;
 
     public AuthenticationService(
         IJwtTokenGenerator jwtTokenGenerator,
         IUserRepository userRepository,
-        IPasswordHasher passwordHasher,
-        IRolesRepository roleRepository)
+        IPasswordHasher passwordHasher)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
-        _roleRepository = roleRepository;
     }
 
     public async Task<UserResponse> Login(LoginRequest request)

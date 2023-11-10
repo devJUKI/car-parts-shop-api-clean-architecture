@@ -29,7 +29,6 @@ public static class DependencyInjection
         });
 
         services.AddTransient<IUserRepository, UserRepository>();
-        services.AddTransient<IRolesRepository, RolesRepository>();
         services.AddAuth(configuration);
 
         return services;

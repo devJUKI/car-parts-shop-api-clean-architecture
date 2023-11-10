@@ -26,13 +26,6 @@ namespace Infrastructure.Persistence.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<Role?> GetRoleByNameAsync(string name)
-        {
-            return await _context.Roles
-                .Where(r => r.Name == name)
-                .SingleOrDefaultAsync();
-        }
-
         public async Task AddRoleToUserAsync(User user, string roleName)
         {
             var role = await _context.Roles
