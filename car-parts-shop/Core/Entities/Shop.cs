@@ -1,9 +1,12 @@
-﻿namespace Core.Entities;
+﻿using Core.Interfaces;
 
-public class Shop
+namespace Core.Entities;
+
+public class Shop : IUserOwnedResource
 {
     public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Location { get; set; }
-    public User? User { get; set; }
+    public string Name { get; set; } = null!;
+    public string Location { get; set; } = null!;
+    public User User { get; set; } = null!;
+    public Guid UserId { get; set; }
 }

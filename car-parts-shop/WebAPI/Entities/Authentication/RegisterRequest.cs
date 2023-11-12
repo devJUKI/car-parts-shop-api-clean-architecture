@@ -1,4 +1,4 @@
-﻿namespace Application.Entities;
+﻿namespace WebAPI.Entities.Authentication;
 
 public record RegisterRequest(
     string Firstname,

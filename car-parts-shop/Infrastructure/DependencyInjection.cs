@@ -28,6 +28,9 @@ public static class DependencyInjection
         });
 
         services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IShopRepository, ShopRepository>();
+        services.AddTransient<ICarRepository, CarRepository>();
+        services.AddTransient<IPartRepository, PartRepository>();
         services.AddAuth(configuration);
 
         return services;

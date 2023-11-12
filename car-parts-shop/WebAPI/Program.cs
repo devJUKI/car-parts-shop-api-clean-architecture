@@ -1,4 +1,5 @@
 using Application;
+using Application.Middlewares;
 using Infrastructure;
 
 namespace WebAPI
@@ -26,13 +27,10 @@ namespace WebAPI
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
-
-            //app.UseAuthentication();
             app.UseAuthorization();
-
             app.MapControllers();
-
             app.Run();
         }
     }

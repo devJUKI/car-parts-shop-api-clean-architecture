@@ -1,45 +1,26 @@
-﻿using Application.Entities;
+using Application.Authorization.Constants;
+using Application.Features.Authentication.Common;
 using Application.Interfaces.Authentication;
 using Application.Interfaces.Persistence;
 using Core.Entities;
+using MediatR;
 
-namespace Application.Services.Authentication;
+namespace Application.Features.Authentication.Commands.Register;
 
-internal class AuthenticationService : IAuthenticationService
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserResponse>
 {
+    private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IPasswordHasher _passwordHasher;
-    private readonly IUserRepository _userRepository;
 
-    public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository, IPasswordHasher passwordHasher)
+    public RegisterCommandHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IPasswordHasher passwordHasher)
     {
-        _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
+        _jwtTokenGenerator = jwtTokenGenerator;
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<UserResponse> Login(LoginRequest request)
-    {
-        var user = await _userRepository.GetUserByEmailAsync(request.Email);
-        if (user == null)
-        {
-            throw new Exception("User with this email was not found");
-        }
-
-        var token = _jwtTokenGenerator.GenerateToken(user.Id, user.Firstname, user.Lastname);
-
-        bool isPasswordCorrect = _passwordHasher.Verify(request.Password, user.HashedPassword);
-        if (isPasswordCorrect == false)
-        {
-            throw new Exception("Credentials are wrong");
-        }
-
-        return new UserResponse(
-            user,
-            token);
-    }
-
-    public async Task<UserResponse> Register(RegisterRequest request)
+    public async Task<AuthUserResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var existingUser = await _userRepository.GetUserByEmailAsync(request.Email);
 
@@ -66,7 +47,9 @@ internal class AuthenticationService : IAuthenticationService
 
         await _userRepository.CreateUserAsync(user);
 
-        return new UserResponse(
+        await _userRepository.AddRoleToUserAsync(user, Roles.User);
+
+        return new AuthUserResponse(
             user,
             token);
     }

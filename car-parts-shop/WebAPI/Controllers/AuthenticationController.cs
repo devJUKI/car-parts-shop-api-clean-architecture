@@ -1,33 +1,41 @@
-﻿using Application.Entities;
-using Application.Interfaces.Authentication;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Authentication.Queries.Login;
+using Application.Features.Authentication.Commands.Register;
+using WebAPI.Entities.Authentication;
 
 namespace WebAPI.Controllers;
 
-[Route("/api/[controller]")]
+[Route("/api")]
 [ApiController]
 public class AuthenticationController : ControllerBase
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly ISender _sender;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(ISender sender)
     {
-        _authenticationService = authenticationService;
+        _sender = sender;
     }
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login(LoginRequest request)
     {
-        var response = await _authenticationService.Login(request);
-
+        var query = new LoginQuery(request.Email, request.Password);
+        var response = await _sender.Send(query);
         return Ok(response);
     }
 
     [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var response = await _authenticationService.Register(request);
+        var command = new RegisterCommand(
+            request.Firstname,
+            request.Lastname,
+            request.PhoneNumber,
+            request.Email,
+            request.Password);
 
+        var response = await _sender.Send(command);
         return Ok(response);
     }
 }
