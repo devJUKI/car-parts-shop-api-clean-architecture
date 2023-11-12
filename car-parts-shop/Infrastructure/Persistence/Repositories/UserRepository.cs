@@ -25,5 +25,32 @@ namespace Infrastructure.Persistence.Repositories
                 .Where(u => u.Email == email)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task AddRoleToUserAsync(User user, string roleName)
+        {
+            var role = await _context.Roles
+                .Where(r => r.Name == roleName)
+                .SingleOrDefaultAsync();
+
+            if (role == null)
+            {
+                return;
+            }
+
+            var userRole = new UserRole { Role = role, User = user };
+
+            _context.UserRoles
+                .Add(userRole);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Role>> GetUserRolesAsync(Guid userId)
+        {
+            return await _context.UserRoles
+                .Where(u => u.User.Id == userId)
+                .Select(u => u.Role)
+                .ToListAsync();
+        }
     }
 }

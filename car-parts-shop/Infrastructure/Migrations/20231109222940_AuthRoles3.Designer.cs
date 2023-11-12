@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CarPartsShopDbContext))]
-    [Migration("20231109013320_Authentication")]
-    partial class Authentication
+    [Migration("20231109222940_AuthRoles3")]
+    partial class AuthRoles3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.BodyType", b =>
+            modelBuilder.Entity("Core.Entities.BodyType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("BodyTypes");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Car", b =>
+            modelBuilder.Entity("Core.Entities.Car", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.FuelType", b =>
+            modelBuilder.Entity("Core.Entities.FuelType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("FuelTypes");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.GearboxType", b =>
+            modelBuilder.Entity("Core.Entities.GearboxType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("GearboxTypes");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Make", b =>
+            modelBuilder.Entity("Core.Entities.Make", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Makes");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Model", b =>
+            modelBuilder.Entity("Core.Entities.Model", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Models");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Part", b =>
+            modelBuilder.Entity("Core.Entities.Part", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,6 +165,21 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Parts");
+                });
+
+            modelBuilder.Entity("Core.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Core.Entities.Shop", b =>
@@ -220,21 +235,42 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Car", b =>
+            modelBuilder.Entity("Core.Entities.UserRole", b =>
                 {
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.BodyType", "Body")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
+                });
+
+            modelBuilder.Entity("Core.Entities.Car", b =>
+                {
+                    b.HasOne("Core.Entities.BodyType", "Body")
                         .WithMany()
                         .HasForeignKey("BodyId");
 
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.FuelType", "Fuel")
+                    b.HasOne("Core.Entities.FuelType", "Fuel")
                         .WithMany()
                         .HasForeignKey("FuelId");
 
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.GearboxType", "Gearbox")
+                    b.HasOne("Core.Entities.GearboxType", "Gearbox")
                         .WithMany()
                         .HasForeignKey("GearboxId");
 
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.Model", "Model")
+                    b.HasOne("Core.Entities.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId");
 
@@ -254,18 +290,18 @@ namespace Infrastructure.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Model", b =>
+            modelBuilder.Entity("Core.Entities.Model", b =>
                 {
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.Make", "Make")
+                    b.HasOne("Core.Entities.Make", "Make")
                         .WithMany()
                         .HasForeignKey("MakeId");
 
                     b.Navigation("Make");
                 });
 
-            modelBuilder.Entity("AdsWebsiteAPI.Data.Entities.Part", b =>
+            modelBuilder.Entity("Core.Entities.Part", b =>
                 {
-                    b.HasOne("AdsWebsiteAPI.Data.Entities.Car", "Car")
+                    b.HasOne("Core.Entities.Car", "Car")
                         .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -278,6 +314,25 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Core.Entities.UserRole", b =>
+                {
+                    b.HasOne("Core.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });

@@ -1,7 +1,6 @@
-﻿using AdsWebsiteAPI.Data.Entities;
-using Application.Interfaces.Persistence;
-using Infrastructure.Persistence;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using Application.Interfaces.Persistence;
 
 namespace Infrastructure.Persistence.Repositories
 {

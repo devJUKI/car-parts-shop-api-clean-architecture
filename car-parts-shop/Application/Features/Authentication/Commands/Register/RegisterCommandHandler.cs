@@ -30,8 +30,9 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserR
         }
 
         var userId = Guid.NewGuid();
+        List<string> roleNames = new() { Roles.User };
 
-        var token = _jwtTokenGenerator.GenerateToken(userId, request.Firstname, request.Lastname);
+        var token = _jwtTokenGenerator.GenerateToken(userId, request.Firstname, request.Lastname, roleNames);
 
         string hashedPassword = _passwordHasher.Hash(request.Password);
 
