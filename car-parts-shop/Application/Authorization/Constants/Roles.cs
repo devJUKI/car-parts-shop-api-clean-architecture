@@ -1,4 +1,4 @@
-﻿namespace Application.Constants;
+﻿namespace Application.Authorization.Constants;
 
 public static class Roles
 {
