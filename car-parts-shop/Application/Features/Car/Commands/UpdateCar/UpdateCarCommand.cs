@@ -15,4 +15,4 @@ public record UpdateCarCommand(
     int GearboxTypeId,
     int ModelId,
     int ShopId,
-    ClaimsPrincipal User) : IRequest<UpdateCarResponse>;
+    ClaimsPrincipal User) : IRequest<CarResponse>;

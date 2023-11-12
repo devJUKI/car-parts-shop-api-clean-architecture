@@ -14,4 +14,4 @@ public record CreateCarCommand(
     int GearboxTypeId,
     int ModelId,
     int ShopId,
-    ClaimsPrincipal User) : IRequest<CreateCarResponse>;
+    ClaimsPrincipal User) : IRequest<CarResponse>;

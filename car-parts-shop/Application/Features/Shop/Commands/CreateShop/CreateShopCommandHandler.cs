@@ -6,7 +6,7 @@ using Application.Exceptions;
 
 namespace Application.Features.Shop.Commands.CreateShop;
 
-public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, CreateShopResponse>
+public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, ShopResponse>
 {
     private readonly IShopRepository _shopRepository;
     private readonly IMapper _mapper;
@@ -17,7 +17,7 @@ public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, Creat
         _mapper = mapper;
     }
 
-    public async Task<CreateShopResponse> Handle(CreateShopCommand request, CancellationToken cancellationToken)
+    public async Task<ShopResponse> Handle(CreateShopCommand request, CancellationToken cancellationToken)
     {
         var existingShop = await _shopRepository.GetAsync(request.Name);
 
@@ -35,6 +35,6 @@ public class CreateShopCommandHandler : IRequestHandler<CreateShopCommand, Creat
 
         await _shopRepository.CreateAsync(shop);
 
-        return _mapper.Map<CreateShopResponse>(shop);
+        return _mapper.Map<ShopResponse>(shop);
     }
 }

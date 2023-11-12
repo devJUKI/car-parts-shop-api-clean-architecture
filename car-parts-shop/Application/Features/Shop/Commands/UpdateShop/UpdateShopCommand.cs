@@ -8,4 +8,4 @@ public record UpdateShopCommand(
     int Id,
     string Name,
     string Location,
-    ClaimsPrincipal User) : IRequest<UpdateShopResponse>;
+    ClaimsPrincipal User) : IRequest<ShopResponse>;

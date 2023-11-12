@@ -3,14 +3,12 @@ using Application.Exceptions;
 using Application.Features.Car.Common;
 using Application.Interfaces.Persistence;
 using AutoMapper;
-using Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using System.ComponentModel.DataAnnotations;
 
 namespace Application.Features.Car.Commands.UpdateCar;
 
-public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, UpdateCarResponse>
+public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, CarResponse>
 {
     private readonly ICarRepository _carRepository;
     private readonly IShopRepository _shopRepository;
@@ -29,7 +27,7 @@ public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, UpdateC
         _mapper = mapper;
     }
 
-    public async Task<UpdateCarResponse> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
+    public async Task<CarResponse> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
     {
         var car = await _carRepository.GetAsync(request.ShopId, request.Id);
 
@@ -68,6 +66,6 @@ public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, UpdateC
 
         await _carRepository.UpdateAsync(car);
 
-        return _mapper.Map<UpdateCarResponse>(car);
+        return _mapper.Map<CarResponse>(car);
     }
 }

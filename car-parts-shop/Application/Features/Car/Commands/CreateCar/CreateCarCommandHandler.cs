@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Application.Features.Car.Commands.CreateCar;
 
-public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CreateCarResponse>
+public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CarResponse>
 {
     private readonly ICarRepository _carRepository;
     private readonly IShopRepository _shopRepository;
@@ -27,7 +27,7 @@ public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CreateC
         _mapper = mapper;
     }
 
-    public async Task<CreateCarResponse> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+    public async Task<CarResponse> Handle(CreateCarCommand request, CancellationToken cancellationToken)
     {
         var bodyType = await _carRepository.GetBodyAsync(request.BodyTypeId);
         var fuelType = await _carRepository.GetFuelAsync(request.FuelTypeId);
@@ -62,6 +62,6 @@ public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CreateC
 
         await _carRepository.CreateAsync(car);
 
-        return _mapper.Map<CreateCarResponse>(car);
+        return _mapper.Map<CarResponse>(car);
     }
 }

@@ -8,7 +8,7 @@ using Application.Authorization.Constants;
 
 namespace Application.Features.Shop.Commands.UpdateShop;
 
-public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, UpdateShopResponse>
+public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, ShopResponse>
 {
     private readonly IAuthorizationService _authorizationService;
     private readonly IShopRepository _shopRepository;
@@ -21,7 +21,7 @@ public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, Updat
         _authorizationService = authorizationService;
     }
 
-    public async Task<UpdateShopResponse> Handle(UpdateShopCommand request, CancellationToken cancellationToken)
+    public async Task<ShopResponse> Handle(UpdateShopCommand request, CancellationToken cancellationToken)
     {
         var shop = await _shopRepository.GetAsync(request.Id);
 
@@ -49,6 +49,6 @@ public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, Updat
 
         await _shopRepository.UpdateAsync(shop);
 
-        return _mapper.Map<UpdateShopResponse>(shop);
+        return _mapper.Map<ShopResponse>(shop);
     }
 }
