@@ -1,4 +1,5 @@
 ﻿using Application.Features.Car.Common;
+using Application.Features.Part.Common;
 using Application.Features.Shop.Common;
 using AutoMapper;
 using Core.Entities;
@@ -33,6 +34,6 @@ public class MapperProfile : Profile
             .ForPath(dest => dest.Gearbox, opt => opt.MapFrom(src => src.Gearbox!.Name))
             .ForPath(dest => dest.Model, opt => opt.MapFrom(src => src.Model!.Name));
 
-        //        CreateMap<Part, PartDto>();
+        CreateMap<Part, PartResponse>();
     }
 }
