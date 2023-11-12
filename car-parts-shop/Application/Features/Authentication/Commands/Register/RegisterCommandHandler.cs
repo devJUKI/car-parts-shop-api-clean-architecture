@@ -1,4 +1,5 @@
 using Application.Authorization.Constants;
+using Application.Exceptions;
 using Application.Features.Authentication.Common;
 using Application.Interfaces.Authentication;
 using Application.Interfaces.Persistence;
@@ -26,7 +27,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserR
 
         if (existingUser != null)
         {
-            throw new Exception("User with that email already exists");
+            throw new ConflictException("User with that email already exists");
         }
 
         var userId = Guid.NewGuid();

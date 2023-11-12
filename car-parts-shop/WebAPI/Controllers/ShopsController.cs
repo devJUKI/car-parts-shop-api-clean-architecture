@@ -71,6 +71,7 @@ namespace AdsWebsiteAPI.Controllers
 
         // DELETE: api/Shops/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteShop(int id)
         {
             var command = new DeleteShopCommand(id, User);

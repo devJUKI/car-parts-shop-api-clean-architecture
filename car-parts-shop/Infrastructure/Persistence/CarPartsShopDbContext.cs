@@ -33,5 +33,7 @@ public class CarPartsShopDbContext : DbContext
             .HasOne(b => b.Car)
             .WithMany()
             .OnDelete(DeleteBehavior.Cascade);
+
+        //new DatabaseInitializer(modelBuilder).Seed();
     }
 }

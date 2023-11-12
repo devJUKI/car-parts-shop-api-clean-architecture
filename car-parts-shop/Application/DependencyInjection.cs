@@ -6,9 +6,9 @@ using System.Reflection;
 using Application.Behaviours;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Application.Authorization.Requirements;
 using Application.Authorization.Policies.Handlers;
 using Application.Authorization.Constants;
+using Application.Authorization.Policies.Requirements;
 
 namespace Application;
 
