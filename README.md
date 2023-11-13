@@ -41,6 +41,7 @@ Registruotas sistemos naudotojas galės:
 Administratorius galės:
 -	Ištrinti parduotuvę
 -	Ištrinti skelbimą
+-	Ištrinti dalį
 
 ##	Pasirinktos technologijos
 Sistemą sudarys 3 dalys, kurioms realizuoti bus naudojamos šios technologijos:
