@@ -1,4 +1,4 @@
-# AutoParts
+# CarPartsShop
 
 ##	Sistemos paskirtis
 Sistema skirta asmenims talpinti automobilių dalių skelbimus ir taip lengviau rasti pirkėjus, o perkantiesiems – lengviau atrasti dalis, kurių jiems reikia.
