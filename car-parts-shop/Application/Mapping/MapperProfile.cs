@@ -1,8 +1,9 @@
-﻿using Application.Features.Car.Common;
+﻿using Application.Features.Authentication.Common;
+using Application.Features.Car.Common;
 using Application.Features.Part.Common;
 using Application.Features.Shop.Common;
-using AutoMapper;
 using Core.Entities;
+using AutoMapper;
 
 namespace Application.Mapping;
 
@@ -19,5 +20,7 @@ public class MapperProfile : Profile
             .ForPath(dest => dest.Model, opt => opt.MapFrom(src => src.Model!.Name));
 
         CreateMap<Part, PartResponse>();
+
+        CreateMap<User, UserResponse>();
     }
 }

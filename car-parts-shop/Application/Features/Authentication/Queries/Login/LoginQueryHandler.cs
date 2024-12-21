@@ -2,6 +2,7 @@
 using Application.Features.Authentication.Common;
 using Application.Interfaces.Authentication;
 using Application.Interfaces.Persistence;
+using AutoMapper;
 using MediatR;
 
 namespace Application.Features.Authentication.Queries.Login;
@@ -11,12 +12,18 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthUserResponse>
     private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IMapper _mapper;
 
-    public LoginQueryHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IPasswordHasher passwordHasher)
+    public LoginQueryHandler(
+        IUserRepository userRepository,
+        IJwtTokenGenerator jwtTokenGenerator,
+        IPasswordHasher passwordHasher,
+        IMapper mapper)
     {
         _userRepository = userRepository;
         _jwtTokenGenerator = jwtTokenGenerator;
         _passwordHasher = passwordHasher;
+        _mapper = mapper;
     }
 
     public async Task<AuthUserResponse> Handle(LoginQuery request, CancellationToken cancellationToken)
@@ -41,7 +48,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthUserResponse>
         }
 
         return new AuthUserResponse(
-            user,
+            _mapper.Map<UserResponse>(user),
             token);
     }
 }

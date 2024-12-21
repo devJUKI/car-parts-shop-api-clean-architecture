@@ -1,0 +1,21 @@
+@host=localhost:7206
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ODRjNDk5Yi1hNWEzLTRkMjYtOThmMi02NDVjYTk4ZjkwOGYiLCJnaXZlbl9uYW1lIjoiSm9obiIsImZhbWlseV9uYW1lIjoiRG9lIiwianRpIjoiYWJkNzIxYWQtOWI3MS00Mzg2LThlZTgtOGViMmJkZjdjMzgyIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTczNDgwNDQ1NiwiaXNzIjoiQ2FyUGFydHNTaG9wIiwiYXVkIjoiQ2FyUGFydHNTaG9wIn0.GWBnvoQoRerxZNU3itGHMl7SJlmnT7ci3LICwtTAdKM
+
+### Authentication
+POST https://{{host}}/api/Register HTTP/1.1
+Content-Type:  application/json
+{
+    "firstname":"John",
+    "lastname":"Doe",
+    "phonenumber":"262-691-9591",
+    "email":"john.doe@gmail.com",
+    "password":"johndoe123"
+}
+
+###
+POST https://{{host}}/api/Login HTTP/1.1
+Content-Type: application/json
+{
+    "email":"john.doe@gmail.com",
+    "password":"johndoe123"
+}

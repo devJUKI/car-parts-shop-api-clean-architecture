@@ -3,6 +3,7 @@ using Application.Exceptions;
 using Application.Features.Authentication.Common;
 using Application.Interfaces.Authentication;
 using Application.Interfaces.Persistence;
+using AutoMapper;
 using Core.Entities;
 using MediatR;
 
@@ -13,12 +14,18 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserR
     private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly IMapper _mapper;
 
-    public RegisterCommandHandler(IUserRepository userRepository, IJwtTokenGenerator jwtTokenGenerator, IPasswordHasher passwordHasher)
+    public RegisterCommandHandler(
+        IUserRepository userRepository,
+        IJwtTokenGenerator jwtTokenGenerator,
+        IPasswordHasher passwordHasher,
+        IMapper mapper)
     {
         _userRepository = userRepository;
         _jwtTokenGenerator = jwtTokenGenerator;
         _passwordHasher = passwordHasher;
+        _mapper = mapper;
     }
 
     public async Task<AuthUserResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -31,7 +38,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserR
         }
 
         var userId = Guid.NewGuid();
-        List<string> roleNames = new() { Roles.User };
+        List<string> roleNames = [Roles.User];
 
         var token = _jwtTokenGenerator.GenerateToken(userId, request.Firstname, request.Lastname, roleNames);
 
@@ -48,11 +55,10 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AuthUserR
         };
 
         await _userRepository.CreateUserAsync(user);
-
         await _userRepository.AddRoleToUserAsync(user, Roles.User);
 
         return new AuthUserResponse(
-            user,
+            _mapper.Map<UserResponse>(user),
             token);
     }
 }

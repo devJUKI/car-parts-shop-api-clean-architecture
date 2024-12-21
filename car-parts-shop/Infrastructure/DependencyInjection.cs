@@ -18,14 +18,14 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        //var connectionString = configuration.GetConnectionString("AWSConnectionString");
-        var connectionString = configuration.GetConnectionString("MySQLConnectionString");
+        var connectionString = configuration.GetConnectionString("SqlServerConnectionString");
 
         if (connectionString == null) throw new Exception("Connection string is null");
 
         services.AddDbContext<CarPartsShopDbContext>(options =>
         {
-            options.UseMySQL(connectionString);
+            //options.UseMySQL(connectionString);
+            options.UseSqlServer(connectionString);
         });
 
         services.AddTransient<IUserRepository, UserRepository>();

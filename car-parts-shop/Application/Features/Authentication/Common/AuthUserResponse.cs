@@ -1,7 +1,5 @@
-﻿using Core.Entities;
-
-namespace Application.Features.Authentication.Common;
+﻿namespace Application.Features.Authentication.Common;
 
 public record AuthUserResponse(
-    User User,
+    UserResponse User,
     string Token);
