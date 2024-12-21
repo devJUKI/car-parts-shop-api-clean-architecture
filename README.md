@@ -1,73 +1,80 @@
-# CarPartsShop
+# Car Parts Shop
 
-##	Sistemos paskirtis
-Sistema skirta asmenims talpinti automobilių dalių skelbimus ir taip lengviau rasti pirkėjus, o perkantiesiems – lengviau atrasti dalis, kurių jiems reikia.
-Kuriama sistema turės 3 dalis – internetinę aplikaciją, duomenų bazę ir API, per kurią vyks komunikacija tarp internetinės aplikacijos ir duomenų bazės.
-Asmuo, norėdamas įkelti skelbimą į šią sistemą, turės prisiregistruoti, sukurti savo parduotuvę, sukurti skelbimą, kuriame turės surašyti informaciją apie automobilį, kurio dalys bus parduodamos, ir šis skelbimas bus priskirtas pasirinktai parduotuvei. Surašius automobilio informaciją, naudotojas turės parašyti, kokias dalis nuo šio automobilio parduoda. Jam įdėjus skelbimą, šis bus matomas visiems, net ir neregistruotiems, sistemos naudotojams.
+##	System's Purpose
+This API is for system which is designed for individuals to post advertisements for car parts sourced from used vehicles. The system will consist of three components: a web application, a database, and an API that will facilitate communication between the web application and the database.
 
-##	Funkciniai reikalavimai
-Neregistruotas sistemos naudotojas galės:
--	Prisijungti prie sistemos
--	Prisiregistruoti prie sistemos
--	Peržiūrėti sistemoje esančius skelbimus
--	Peržiūrėti sistemoje esančias parduotuves
--	Peržiūrėti sistemoje esančias dalis
+To post an advertisement on this system, a person needs to register, create their own shop, and then create an advertisement. In the advertisement, they must provide information about the car from which the parts are being sold, and the advertisement will be assigned to a selected shop. After providing information about the car, the user specifies which parts from the car are for sale. Once the advertisement is posted, it becomes visible to all system users, including unregistered ones.
 
-Registruotas sistemos naudotojas galės:
--	Atsijungti nuo sistemos
--	Sukurti parduotuvę:
-    -	Įvesti pavadinimą
-    -	Įvesti parduotuvės vietą
--	Sukurti skelbimą:
-    -	Pasirinkti automobilio markę
-    -	Pasirinkti automobilio modelį
-    -	Pasirinkti pirmos registracijos datą
-    -	Pasirinkti kėbulo tipą
-    -	Pasirinkti kuro tipą
-    -	Pasirinkti pavarų dėžės tipą
-    -	Įvesti ridą
-    -	Įvesti darbinį tūrį
-    -	Įvesti galią
-    -	Priskirti parduodamas dalis:
-        -	Parašyti pavadinimą
-        -	Parašyti kainą
--	Ištrinti skelbimą
--	Ištrinti parduotuvę
--	Ištrinti parduodamą dalį
--	Pakeisti skelbimo informaciją
--	Pakeisti automobilio informaciją
--	Pakeisti dalies informaciją
+##	Functional requirements
+An unregistered user will be able to:
+- Log in
+- Register
+- View advertisements
+- View shops
+- View parts
 
-Administratorius galės:
--	Ištrinti parduotuvę
--	Ištrinti skelbimą
--	Ištrinti dalį
+Registered user of the system will be able to:
+- Log out
+- Create a store:
+    - Enter a name
+    - Enter store location
+- Create an ad:
+    - Choose a car make
+    - Choose a car model
+    - Choose the date of first registration
+    - Choose a body type
+    - Choose a fuel type
+    - Select gearbox type
+    - Enter the mileage
+    - Enter displacement
+    - Enter power
+    - Assign parts for sale:
+        - Enter name
+        - Enter price
+- Delete ad
+- Delete shop
+- Delete part for sale
+- Change ad details
+- Change vehicle information
+- Change part information
 
-##	Pasirinktos technologijos
-Sistemą sudarys 3 dalys, kurioms realizuoti bus naudojamos šios technologijos:
+The administrator will be able to:
+- Delete a shop
+- Delete an ad
+- Delete a part
 
--	Klientinė dalis (front-end) – React.js
--	Serverio dalis (back-end) – ASP.NET Core
--	Duomenų bazė – MySQL
+## API Endpoints
 
-##	API endpoint‘ai
-<b>Parduotuvės</b>
--	/api/shops <b>GET List 200</b>
--	/api/shops/{id} <b>GET One 200</b>
--	/api/shops <b>POST Create 201</b>
--	/api/shops/{id} <b>PUT/PATCH Modify 200</b>
--	/api/shops/{id} <b>DELETE Remove 200/204</b>
+### Authentication
+| Method    | Endpoint                   | Description        | Response Code |
+|-----------|----------------------------|--------------------|---------------|
+| `POST`    | `/api/login`               | Login              | 200           |
+| `POST`    | `/api/register`            | Register           | 200           |
 
-<b>Automobiliai</b>
--	/api/shops/{id}/cars <b>GET List 200</b>
--	/api/shops/{id}/cars/{id} <b>GET One 200</b>
--	/api/shops/{id}/cars <b>POST Create 201</b>
--	/api/shops/{id}/cars/{id} <b>PUT/PATCH Modify 200</b>
--	/api/shops/{id}/cars/{id} <b>DELETE Remove 200/204</b>
+### Shops
+| Method    | Endpoint                   | Description        | Response Code |
+|-----------|----------------------------|--------------------|---------------|
+| `GET`     | `/api/shops`               | List all shops     | 200           |
+| `GET`     | `/api/shops/{id}`          | Get one shop       | 200           |
+| `POST`    | `/api/shops`               | Create a shop      | 201           |
+| `PUT`     | `/api/shops/{id}`          | Modify a shop      | 200           |
+| `DELETE`  | `/api/shops/{id}`          | Remove a shop      | 204           |
 
-<b>Detalės</b>
--	/api/shops/{id}/cars/{id}/parts <b>GET List 200</b>
--	/api/shops/{id}/cars/{id}/parts/{id} <b>GET One 200</b>
--	/api/shops/{id}/cars/{id}/parts <b>POST Create 201</b>
--	/api/shops/{id}/cars/{id}/parts/{id} <b>PUT/PATCH Modify 200</b>
--	/api/shops/{id}/cars/{id}/parts/{id} <b>DELETE Remove 200/204</b>
+### Cars
+| Method    | Endpoint                            | Description               | Response Code |
+|-----------|-------------------------------------|---------------------------|---------------|
+| `GET`     | `/api/shops/{id}/cars`              | List all cars in a shop   | 200           |
+| `GET`     | `/api/shops/{id}/cars/{id}`         | Get one car in a shop     | 200           |
+| `POST`    | `/api/shops/{id}/cars`              | Create a car in a shop    | 201           |
+| `PUT`     | `/api/shops/{id}/cars/{id}`         | Modify a car in a shop    | 200           |
+| `DELETE`  | `/api/shops/{id}/cars/{id}`         | Remove a car in a shop    | 204           |
+
+### Parts
+| Method    | Endpoint                                       | Description                  | Response Code |
+|-----------|------------------------------------------------|------------------------------|---------------|
+| `GET`     | `/api/shops/{id}/cars/{id}/parts`              | List all parts of a car      | 200           |
+| `GET`     | `/api/shops/{id}/cars/{id}/parts/{id}`         | Get one part of a car        | 200           |
+| `POST`    | `/api/shops/{id}/cars/{id}/parts`              | Create a part for a car      | 201           |
+| `PUT`     | `/api/shops/{id}/cars/{id}/parts/{id}`         | Modify a part of a car       | 200           |
+| `DELETE`  | `/api/shops/{id}/cars/{id}/parts/{id}`         | Remove a part of a car       | 204           |
+
