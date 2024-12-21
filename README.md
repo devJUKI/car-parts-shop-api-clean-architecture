@@ -1,15 +1,18 @@
 # Car Parts Shop
 
-##	System's Purpose
-This API is for system which is designed for individuals to post advertisements for car parts sourced from used vehicles. The system will consist of three components: a web application, a database, and an API that will facilitate communication between the web application and the database.
+## 📜 System's Purpose
+This API is for system which is designed for individuals to post advertisements for car parts sourced from used vehicles. The system will consist of three components:
+1. A **web application**.  
+2. A **database**.  
+3. An **API** that connects the web application and the database.
 
 To post an advertisement on this system, a person needs to register, create their own shop, and then create an advertisement. In the advertisement, they must provide information about the car from which the parts are being sold, and the advertisement will be assigned to a selected shop. After providing information about the car, the user specifies which parts from the car are for sale. Once the advertisement is posted, it becomes visible to all system users, including unregistered ones.
 
-## How to Run
+## 🚀 How to Run
 
-### Create the Database  
+### 1️⃣ Create the Database  
 Open **SQL Server** and create a new database named: `CarPartsShop`
-### Update the Database
+### 2️⃣ Update the Database
 Apply the existing migration to set up the database schema:
 #### Option 1: Using .NET CLI
 Run the following command in your terminal:
@@ -22,53 +25,50 @@ Run the following command in the Package Manager Console:
 Update-Database
 ```
 
-##	Functional requirements
-An unregistered user will be able to:
-- Log in
-- Register
-- View advertisements
-- View shops
-- View parts
+You're now ready to run the API! 🚗💨
 
-Registered user of the system will be able to:
-- Log out
-- Create a store:
-    - Enter a name
-    - Enter store location
-- Create an ad:
-    - Choose a car make
-    - Choose a car model
-    - Choose the date of first registration
-    - Choose a body type
-    - Choose a fuel type
-    - Select gearbox type
-    - Enter the mileage
-    - Enter displacement
-    - Enter power
-    - Assign parts for sale:
-        - Enter name
-        - Enter price
-- Delete ad
-- Delete shop
-- Delete part for sale
-- Change ad details
-- Change vehicle information
-- Change part information
+## 🛠 Functional requirements
+### Unregistered users can:
+- 🔑 Log in
+- ✍️ Register
+- 👀 View:
+  - Advertisements
+  - Shops
+  - Parts
 
-The administrator will be able to:
-- Delete a shop
-- Delete an ad
-- Delete a part
+### Registered users can:
+- 🚪 Log out
+- 🏪 Create a Shop:
+  - Enter shop name
+  - Specify shop location
+- 📣 Post Advertisements:
+  - Car Details:
+    - Car make, model, body type, fuel type, gearbox type
+    - First registration date
+    - Mileage, displacement, and power
+  - Parts Details:
+    - Part name
+    - Price
+- ✏️ Modify:
+  - Ads, vehicle information, or part details
+- ❌ Delete:
+  - Ads, shops, or parts for sale
 
-## API Endpoints
+### Administrators can:
+- ✏️ Modify (all users'):
+  - Ads, vehicle information, or part details
+- ❌ Delete (all users'):
+  - Ads, shops, or parts for sale
 
-### Authentication
+## 📚 API Endpoints
+
+### 🔒 Authentication
 | Method    | Endpoint                   | Description        | Response Code |
 |-----------|----------------------------|--------------------|---------------|
 | `POST`    | `/api/login`               | Login              | 200           |
 | `POST`    | `/api/register`            | Register           | 200           |
 
-### Shops
+### 🏪 Shops
 | Method    | Endpoint                   | Description        | Response Code |
 |-----------|----------------------------|--------------------|---------------|
 | `GET`     | `/api/shops`               | List all shops     | 200           |
@@ -77,7 +77,7 @@ The administrator will be able to:
 | `PUT`     | `/api/shops/{id}`          | Modify a shop      | 200           |
 | `DELETE`  | `/api/shops/{id}`          | Remove a shop      | 204           |
 
-### Cars
+### 🚗 Cars
 | Method    | Endpoint                            | Description               | Response Code |
 |-----------|-------------------------------------|---------------------------|---------------|
 | `GET`     | `/api/shops/{id}/cars`              | List all cars in a shop   | 200           |
@@ -86,7 +86,7 @@ The administrator will be able to:
 | `PUT`     | `/api/shops/{id}/cars/{id}`         | Modify a car in a shop    | 200           |
 | `DELETE`  | `/api/shops/{id}/cars/{id}`         | Remove a car in a shop    | 204           |
 
-### Parts
+### 🛠 Parts
 | Method    | Endpoint                                       | Description                  | Response Code |
 |-----------|------------------------------------------------|------------------------------|---------------|
 | `GET`     | `/api/shops/{id}/cars/{id}/parts`              | List all parts of a car      | 200           |
