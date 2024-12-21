@@ -5,6 +5,23 @@ This API is for system which is designed for individuals to post advertisements 
 
 To post an advertisement on this system, a person needs to register, create their own shop, and then create an advertisement. In the advertisement, they must provide information about the car from which the parts are being sold, and the advertisement will be assigned to a selected shop. After providing information about the car, the user specifies which parts from the car are for sale. Once the advertisement is posted, it becomes visible to all system users, including unregistered ones.
 
+## How to Run
+
+### Create the Database  
+Open **SQL Server** and create a new database named: `CarPartsShop`
+### Update the Database
+Apply the existing migration to set up the database schema:
+#### Option 1: Using .NET CLI
+Run the following command in your terminal:
+```bash
+dotnet ef database update
+```
+#### Option 2: Using Visual Studio Powershell
+Run the following command in the Package Manager Console:
+```bash
+Update-Database
+```
+
 ##	Functional requirements
 An unregistered user will be able to:
 - Log in
