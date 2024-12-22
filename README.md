@@ -10,10 +10,7 @@ To post an advertisement on this system, a person needs to register, create thei
 
 ## 🚀 How to Run
 
-### 1️⃣ Create the Database  
-Open **SQL Server** and create a new database named: `CarPartsShop`
-### 2️⃣ Update the Database
-Apply the existing migration to set up the database schema:
+### Create the Database & Apply Migration
 #### Option 1: Using .NET CLI
 Run the following command in your terminal:
 ```bash
