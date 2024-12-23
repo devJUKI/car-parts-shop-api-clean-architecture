@@ -1,4 +1,4 @@
-# Car Parts Shop
+# Car Parts Shop API
 
 ## 📜 System's Purpose
 This API is for system which is designed for individuals to post advertisements for car parts sourced from used vehicles. The system will consist of three components:
