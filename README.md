@@ -1,5 +1,7 @@
 # Car Parts Shop API
 
+Car parts shop API made with ASP.NET Core using Clean Architecture principles (CQRS/MediatR with Global Exception Handling).
+
 ## 📜 System's Purpose
 This API is for system which is designed for individuals to post advertisements for car parts sourced from used vehicles. The system will consist of three components:
 1. A **web application**.  
